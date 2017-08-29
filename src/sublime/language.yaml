@@ -1,0 +1,46 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+
+name: Checklist
+scopeName: text.clist
+fileTypes: [clist.txt]
+uuid: f104b009-0019-4ff5-81e9-47f81315a358
+
+patterns:
+  # Comments
+  - match: '#.*$'
+    name: comment
+  # String literals (not actually specified)
+  - match: '"[^"]+"'
+    name: string
+  # Command keywords
+  - match: 'sw_(?:checklist|continue|item(?:info|void)?|remark|rcolsize|show)'
+    name: entity.name.tag
+  # Separators
+  - match: ':|\|'
+    name: punctuation.separator
+  # Opening bracket
+  - match: '(?&lt;=:|&&|\|\|)\('
+    name: punctuation.section.brackets.begin
+  # Closing bracket
+  # FIXME: Don't highlight at end of arbitrary text
+  - match: '\)(?=:|&&|\|\||$)'
+    name: punctuation.section.brackets.end
+  # Logical operators
+  - match: '&&|\|\|'
+    name: keyword.operator.logical
+  # Numbers and conditions
+  # TODO: Range condition not yet implemented
+  - match: '(?&lt;=:)(\!|(?:\+|\-)?&gt;|&gt;?&lt;)?(\-?\d+|(\-?\d*\.\d+)?)(?=:|\)|$)'
+    captures:
+      '1': {name: keyword.operator.logical}
+      '2': {name: constant.numeric}
+  # DataRefs
+  - match: '(?&lt;=:|\()\w+(?:\/\w+)+(?:(\[)(\d+)(\]))?(?=:)'
+    name: entity.name.namespace
+    captures:
+      '1': {name: punctuation.section.brackets.begin}
+      '2': {name: constant.numeric.integer}
+      '3': {name: punctuation.section.brackets.end}
+  # Strings and miscellaneous
+  - match: '.'
+    name: string
