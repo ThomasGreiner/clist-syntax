@@ -29,8 +29,7 @@ patterns:
   - match: '&&|\|\|'
     name: keyword.operator.logical
   # Numbers and conditions
-  # TODO: Range condition not yet implemented
-  - match: '(?&lt;=:)(\!|(?:\+|\-)?&gt;|&gt;?&lt;)?(\-?\d+|(\-?\d*\.\d+)?)(?=:|\)|$)'
+  - match: '(?&lt;=:|\d\|)(\!|(?:\+|\-)?&gt;|&gt;?&lt;)?(\-?\d+|(\-?\d*\.\d+)?)(?=:|\)|\||$)'
     captures:
       '1': {name: keyword.operator.logical}
       '2': {name: constant.numeric}
